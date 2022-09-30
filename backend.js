@@ -4,6 +4,7 @@ const port = 5000;
 
 app.use(express.json());
 
+//Home Page
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -28,7 +29,7 @@ const users = {
        {
           id : 'ppp222', 
           name: 'Mac',
-          job: 'Professor',
+          job: 'Bouncer',
        }, 
        {
           id: 'yat999', 
@@ -43,24 +44,43 @@ const users = {
     ]
  }
 
+ //Returns user by query
  app.get('/users', (req, res) => {
 
    const name = req.query.name;
-   if(name){
+   const job = req.query.job;
+
+   if(name && job){
+      let result = findUserByName(name);
+      result = findUserByJob(job);
+      result = {users_list: result};
+      res.send(result);
+   }
+   else if(name){
       let result = findUserByName(name);
       result = {users_list: result};
       res.send(result);
    }
-
-   else{
-    res.send(users);
+   else if(job){
+      let result = findUserByJob(job);
+      result = {users_list: result};
+      res.send(result);
    }
+   else
+      res.send(users);
  });
 
+ //Returns all users with given name
  const findUserByName = (name) => {
    return users['users_list'].filter( (user) => user['name'] === name);
  };
 
+ //Returns all users with given job
+ const findUserByJob = (job) => {
+   return users['users_list'].filter( (user) => user['job'] === job);
+ };
+
+ //Returns user by id
  app.get('/users/:id', (req, res) => {
    const id = req.params.id;
    let result = findUserById(id);
@@ -76,6 +96,7 @@ const users = {
    return users['users_list'].find( (user) => user['id'] === id);
  };
 
+ //Add user by POST
  app.post('/users/', (req, res) => {
    const newUser = req.body;
    addUser(newUser);
@@ -86,3 +107,21 @@ const users = {
  function addUser(user){
    users['users_list'].push(user);
  }
+
+ //DELETE user
+ app.delete("/users/", (req, res) => {
+
+   const delUser = req.body;
+   const index = users["users_list"].indexOf(findUserById(req.body.id));
+   if(index === -1){
+      res.status(404).end("Resource not found.");
+   }
+
+   else{
+   users["users_list"].splice(index, 1)
+   res.status(200).send();
+   }  
+}
+)
+
+

@@ -75,3 +75,14 @@ const users = {
  const findUserById = (id) => {
    return users['users_list'].find( (user) => user['id'] === id);
  };
+
+ app.post('/users/', (req, res) => {
+   const newUser = req.body;
+   addUser(newUser);
+   res.status(200).end();
+   
+ })
+
+ function addUser(user){
+   users['users_list'].push(user);
+ }

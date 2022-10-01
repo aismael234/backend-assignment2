@@ -1,6 +1,11 @@
+const cors = require('cors');
+
 const express = require('express');
 const app = express();
 const port = 5000;
+
+//extremely insecure to open cors to all origins, but just use now for development purposes
+app.use(cors());
 
 app.use(express.json());
 

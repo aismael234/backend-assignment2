@@ -105,7 +105,7 @@ const users = {
  app.post('/users/', (req, res) => {
    const newUser = req.body;
    addUser(newUser);
-   res.status(200).end();
+   res.status(201).end();
    
  })
 

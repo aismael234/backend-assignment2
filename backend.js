@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 const port = 5000;
+var counter = {"count":0};
 
 //extremely insecure to open cors to all origins, but just use now for development purposes
 app.use(cors());
@@ -104,6 +105,7 @@ const users = {
  //Add user by POST
  app.post('/users/', (req, res) => {
    const newUser = req.body;
+   newUser.id = ++counter.count;
    addUser(newUser);
    res.status(201).end();
    

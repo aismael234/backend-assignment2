@@ -102,7 +102,7 @@ const users = {
  const findUserById = (id) => {
    return users['users_list'].find( (user) => user['id'] === id);
  };
-
+ 
  //Add user by POST
  app.post('/users/', (req, res) => {
    const newUser = req.body;
@@ -117,9 +117,11 @@ const users = {
  }
 
  //DELETE user
- app.delete("/users", (req, res) => {
+ app.delete("/users/", (req, res) => {
 
+   console.log(req.body.id);
    const index = users["users_list"].indexOf(findUserById(req.body.id));
+   console.log(index);
    if(index === -1){
       res.status(404).end("Resource not found.");
    }

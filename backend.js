@@ -117,9 +117,8 @@ const users = {
  }
 
  //DELETE user
- app.delete("/users/", (req, res) => {
+ app.delete("/users", (req, res) => {
 
-   //const delUser = req.body;
    const index = users["users_list"].indexOf(findUserById(req.body.id));
    if(index === -1){
       res.status(404).end("Resource not found.");

@@ -119,15 +119,15 @@ const users = {
  //DELETE user
  app.delete("/users/", (req, res) => {
 
-   const delUser = req.body;
+   //const delUser = req.body;
    const index = users["users_list"].indexOf(findUserById(req.body.id));
    if(index === -1){
       res.status(404).end("Resource not found.");
    }
 
    else{
-   users["users_list"].splice(index, 1)
-   res.status(200).send();
+      users["users_list"].splice(index, 1)
+      res.status(204).send();
    }  
 }
 )

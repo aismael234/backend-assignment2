@@ -50,7 +50,7 @@ const users = {
     ]
  }
 
- //Returns user by query
+ //Responds with users by query
  app.get('/users', (req, res) => {
 
    const name = req.query.name;
@@ -76,17 +76,17 @@ const users = {
       res.send(users);
  });
 
- //Returns all users with given name
+ //Returns users with given name
  const findUserByName = (name) => {
    return users['users_list'].filter( (user) => user['name'] === name);
  };
 
- //Returns all users with given job
+ //Returns users with given job
  const findUserByJob = (job) => {
    return users['users_list'].filter( (user) => user['job'] === job);
  };
 
- //Returns user by id
+ //Responds with user by id
  app.get('/users/:id', (req, res) => {
    const id = req.params.id;
    let result = findUserById(id);
@@ -97,7 +97,8 @@ const users = {
       res.send(result);
    }
  })
-
+ 
+// Returns user with given id
  const findUserById = (id) => {
    return users['users_list'].find( (user) => user['id'] === id);
  };
@@ -107,7 +108,7 @@ const users = {
    const newUser = req.body;
    newUser.id = ++counter.count;
    addUser(newUser);
-   res.status(201).end();
+   res.status(201).send(newUser);
    
  })
 
